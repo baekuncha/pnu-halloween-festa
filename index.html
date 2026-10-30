@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 부산대학교 효원 할로윈 페스타: 넉터의 밤 | 총학생회</title>
+  
+  <!-- Open Graph for KakaoTalk & Instagram sharing -->
+  <meta property="og:title" content="🎃 2026 부산대 효원 할로윈 페스타: 넉터의 밤" />
+  <meta property="og:description" content="부산대학교 총학생회 주최! 넉터 호러 방탈출, 산지니 한정 굿즈, 코스튬 런웨이 얼리버드 예약 진행 중!" />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts & CDN Libraries -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            pnu: {
+              DEFAULT: '#003876',
+              dark: '#00224d',
+              light: '#005bb5'
+            },
+            spooky: {
+              orange: '#ff7518',
+              purple: '#8a2be2',
+              green: '#00ff88',
+              dark: '#0b0c13'
+            }
+          },
+          fontFamily: {
+            sans: ['Pretendard', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Supabase JS Client v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Canvas Confetti for ticket issuance celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="halloween-bg text-gray-100 min-h-screen font-sans selection:bg-orange-500 selection:text-white">
+
+  <!-- ============================================================== -->
+  <!-- TOP NAVIGATION HEADER                                          -->
+  <!-- ============================================================== -->
+  <header class="sticky top-0 z-40 w-full glass-panel border-b border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full overflow-hidden bg-pnu p-1.5 border border-blue-400/40 shadow-lg group-hover:scale-105 transition">
+          <img src="assets/pnu-logo.svg" alt="부산대학교 로고" class="w-full h-full object-contain" />
+        </div>
+        <div>
+          <span class="text-xs text-blue-300 font-semibold tracking-wider block">부산대학교 총학생회</span>
+          <span class="text-sm font-extrabold text-orange-400 group-hover:text-orange-300 transition">효원 할로윈 페스타</span>
+        </div>
+      </a>
+
+      <!-- Header Action Controls -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- A/B Variant Tag -->
+        <span class="ab-variant-tag hidden md:inline-flex text-xs px-2 py-0.5 rounded-full bg-purple-950/80 border border-purple-700/60 text-purple-300 font-mono">
+          A/B Variant [A]
+        </span>
+
+        <!-- Audio Toggle -->
+        <button id="sound-toggle-btn" class="px-2.5 py-1 text-xs rounded-lg border border-gray-700 hover:border-gray-500 text-gray-300 transition flex items-center gap-1">
+          🔇 <span class="hidden sm:inline">호러 사운드 OFF</span>
+        </button>
+
+        <!-- Growth Hacking Dashboard Toggle Button -->
+        <button id="btn-toggle-dashboard" data-track-id="btn-header-dashboard" data-track-name="헤더 그로스 대시보드 버튼"
+                class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-lg shadow-orange-950/40 transition transform active:scale-95 ring-2 ring-orange-500/30">
+          📊 <span>그로스 데이터</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- 1. MAIN STUDENT EVENT SITE VIEW                                -->
+  <!-- ============================================================== -->
+  <main id="main-site-view">
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 px-4 overflow-hidden">
+      <!-- Decorative Floating Ghosts -->
+      <div class="absolute top-10 left-5 w-14 h-14 opacity-40 floating-ghost pointer-events-none">
+        <img src="assets/ghost.svg" alt="ghost" />
+      </div>
+      <div class="absolute bottom-10 right-8 w-16 h-16 opacity-30 floating-ghost pointer-events-none" style="animation-delay: -2.5s;">
+        <img src="assets/ghost.svg" alt="ghost" />
+      </div>
+
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 text-center lg:text-left z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/80 border border-orange-500/50 text-orange-400 text-xs font-semibold mb-4">
+            <span>🎃 2026. 10. 31(금) 단 하루</span>
+            <span class="w-1 h-1 rounded-full bg-orange-400"></span>
+            <span>부산대 넉넉한터(넉터)</span>
+          </div>
+
+          <h1 id="hero-title" class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight spooky-text-glow mb-4">
+            🎃 <span class="text-purple-400">2026 부산대학교</span><br/>
+            효원 할로윈 페스타: 넉터의 밤
+          </h1>
+
+          <p id="hero-subtitle" class="text-gray-300 text-base sm:text-lg mb-6 max-w-xl mx-auto lg:mx-0">
+            부산대 총학생회가 준비한 가을밤의 스릴! 야외 호러 방탈출, 코스튬 런웨이, 산지니 한정판 굿즈와 마녀 푸드트럭까지!
+          </p>
+
+          <!-- Countdown Timer -->
+          <div class="glass-panel p-4 rounded-2xl max-w-md mx-auto lg:mx-0 mb-6 border border-gray-700/60">
+            <div class="text-xs text-gray-400 mb-2 flex items-center justify-between">
+              <span>⏳ 할로윈 오픈 카운트다운</span>
+              <span class="text-orange-400 font-semibold font-mono">2026.10.31 18:00 KST</span>
+            </div>
+            <div class="grid grid-cols-4 gap-2 text-center">
+              <div class="bg-gray-950/70 p-2 rounded-xl border border-gray-800">
+                <span id="cd-days" class="text-xl sm:text-2xl font-black font-mono text-orange-400">00</span>
+                <span class="block text-2xs text-gray-500 mt-0.5">DAYS</span>
+              </div>
+              <div class="bg-gray-950/70 p-2 rounded-xl border border-gray-800">
+                <span id="cd-hours" class="text-xl sm:text-2xl font-black font-mono text-orange-400">00</span>
+                <span class="block text-2xs text-gray-500 mt-0.5">HOURS</span>
+              </div>
+              <div class="bg-gray-950/70 p-2 rounded-xl border border-gray-800">
+                <span id="cd-mins" class="text-xl sm:text-2xl font-black font-mono text-orange-400">00</span>
+                <span class="block text-2xs text-gray-500 mt-0.5">MINS</span>
+              </div>
+              <div class="bg-gray-950/70 p-2 rounded-xl border border-gray-800">
+                <span id="cd-secs" class="text-xl sm:text-2xl font-black font-mono text-orange-400">00</span>
+                <span class="block text-2xs text-gray-500 mt-0.5">SECS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Urgency FOMO Notice -->
+          <div class="flex items-center justify-center lg:justify-start gap-2 text-xs text-amber-300 mb-6">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+            <span>VIP 호러 패키지 선착순 마감 임박! 현재 잔여석:</span>
+            <span id="vip-remaining-count" class="font-bold text-sm text-red-400 font-mono transition-all">14</span><span>자리</span>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+            <a href="#packages-section" id="hero-cta-btn" data-track-id="btn-hero-reserve" data-track-name="히어로 얼리버드 예약 CTA"
+               class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-extrabold text-base shadow-xl shadow-orange-900/40 text-center transition transform active:scale-95 flex items-center justify-center gap-2 border border-orange-400">
+              <span>🎃 할로윈 패키지 사전예약</span>
+            </a>
+            <a href="#programs-section" data-track-id="btn-hero-programs" data-track-name="히어로 프로그램 보기 CTA"
+               class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gray-900/80 hover:bg-gray-800 text-gray-200 font-bold text-base border border-gray-700 text-center transition">
+              <span>👻 프로그램 안내 보기</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Hero Illustration: Spooky Sanjini Mascot -->
+        <div class="lg:col-span-5 flex justify-center relative">
+          <div class="w-64 sm:w-80 h-64 sm:h-80 relative floating-sanjini">
+            <img src="assets/sanjini-halloween.svg" alt="할로윈 마법사 산지니" class="w-full h-full drop-shadow-[0_20px_35px_rgba(255,117,24,0.35)]" />
+            <!-- Mascot Caption -->
+            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1.5 rounded-full bg-gray-950/90 border border-orange-500/50 text-xs text-orange-300 font-bold shadow-lg">
+              ✨ 마법사로 변신한 부산대 산지니
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: PROGRAMS & ATTRACTIONS -->
+    <section id="programs-section" class="py-16 px-4 border-t border-gray-800/80 bg-gray-950/40">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="text-xs font-bold text-orange-400 uppercase tracking-widest">Hyowon Horror Festa Programs</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-2">넉터에서 펼쳐지는 4대 호러 어트랙션</h2>
+          <p class="text-gray-400 text-sm mt-1">부산대 학우들을 위해 총학생회가 준비한 다채로운 할로윈 프로그램</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Card 1 -->
+          <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-orange-500/40 transition group">
+            <div class="w-12 h-12 rounded-xl bg-purple-900/50 text-purple-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              🏚️
+            </div>
+            <h3 class="font-bold text-lg text-white mb-2">넉터 야외 호러 방탈출</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              금정산 산신과 부산대 괴담을 테마로 한 초대형 야외 미로 방탈출! 탈출 성공 시 한정판 산지니 뱃지 증정.
+            </p>
+            <div class="mt-4 pt-3 border-t border-gray-800/60 flex items-center justify-between text-2xs text-gray-500">
+              <span>장소: 넉넉한터 잔디광장</span>
+              <span class="text-orange-400">사전예약 필수</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-orange-500/40 transition group">
+            <div class="w-12 h-12 rounded-xl bg-orange-900/50 text-orange-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              🧛
+            </div>
+            <h3 class="font-bold text-lg text-white mb-2">효원 코스튬 런웨이</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              학과/동아리 대항 할로윈 코스튬 콘테스트! 총 상금 100만원 상당 및 부산대 최고 인기 귀신을 뽑는 현장 투표 진행.
+            </p>
+            <div class="mt-4 pt-3 border-t border-gray-800/60 flex items-center justify-between text-2xs text-gray-500">
+              <span>장소: 넉터 특설무대</span>
+              <span class="text-green-400">현장 무료관람</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-orange-500/40 transition group">
+            <div class="w-12 h-12 rounded-xl bg-blue-900/50 text-blue-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              🎁
+            </div>
+            <h3 class="font-bold text-lg text-white mb-2">산지니 호러 굿즈 부스</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              할로윈 마법사 산지니 아크릴 키링, 야광 티셔츠, 호러 스티커팩 등 오직 축제 당일에만 판매되는 리미티드 굿즈.
+            </p>
+            <div class="mt-4 pt-3 border-t border-gray-800/60 flex items-center justify-between text-2xs text-gray-500">
+              <span>장소: 학생회관 앞 부스</span>
+              <span class="text-amber-400">수량 한정</span>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-orange-500/40 transition group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-900/50 text-emerald-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+              🧪
+            </div>
+            <h3 class="font-bold text-lg text-white mb-2">마녀의 푸드 & 칵테일존</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              시월광장에 펼쳐지는 블러드 펀치 무알콜 칵테일, 눈알 마카롱, 호박 와플 등 할로윈 테마 푸드트럭 빌리지!
+            </p>
+            <div class="mt-4 pt-3 border-t border-gray-800/60 flex items-center justify-between text-2xs text-gray-500">
+              <span>장소: 시월광장</span>
+              <span class="text-purple-400">18:00~23:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: TICKET & MERCH PACKAGES (PRIMARY CONVERSION FUNNEL) -->
+    <section id="packages-section" class="py-20 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="text-xs font-bold text-orange-400 uppercase tracking-widest">Early-bird Tickets & Goods</span>
+          <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">사전예약 패키지 선택</h2>
+          <p class="text-gray-400 text-sm mt-2">선착순 사전 예약자 전원에게 <strong>할로윈 야광 타투 스티커</strong>를 현장에서 드립니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+          
+          <!-- Package 1: Basic -->
+          <div class="glass-panel rounded-3xl p-7 flex flex-col justify-between border border-gray-800 hover:border-gray-600 transition">
+            <div>
+              <div class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gray-800 text-gray-300 mb-4">
+                재학생 기본권
+              </div>
+              <h3 class="text-xl font-bold text-white">베이직 효원 패스</h3>
+              <p class="text-xs text-gray-400 mt-1">부담 없이 축제 분위기를 즐기고 싶은 학우</p>
+              
+              <div class="mt-6 mb-6">
+                <span class="text-3xl font-black text-white font-mono">0원</span>
+                <span class="text-xs text-gray-400 ml-1">/ 재학생 무료 인증</span>
+              </div>
+
+              <ul class="space-y-3 text-xs text-gray-300 border-t border-gray-800/80 pt-5">
+                <li class="flex items-center gap-2">
+                  <span class="text-green-400">✓</span> 넉터 특설무대 & 런웨이 무료 입장
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-green-400">✓</span> 효원 호러 야광봉 1개
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-green-400">✓</span> 산지니 할로윈 타투 스티커
+                </li>
+                <li class="flex items-center gap-2 text-gray-500">
+                  <span>✕</span> 방탈출 우선 입장권 미포함
+                </li>
+              </ul>
+            </div>
+
+            <button data-track-id="btn-pkg-basic" data-track-name="베이직 패키지 선택"
+                    data-package-type="BASIC" data-package-name="베이직 효원 패스 (무료)" data-package-price="0"
+                    class="btn-select-package mt-8 w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-sm border border-gray-700 transition">
+              베이직 패스 신청하기
+            </button>
+          </div>
+
+          <!-- Package 2: Spooky (Popular) -->
+          <div class="glass-panel rounded-3xl p-7 flex flex-col justify-between border-2 border-orange-500/80 relative shadow-2xl shadow-orange-950/50 bg-gradient-to-b from-gray-900/90 to-gray-950">
+            <!-- Popular Badge -->
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs font-black shadow-lg">
+              🔥 가장 인기 (선착순 500명)
+            </div>
+
+            <div>
+              <div class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-orange-950 text-orange-400 border border-orange-800/60 mb-4 mt-2">
+                스푸키 추천 패키지
+              </div>
+              <h3 class="text-xl font-bold text-white">스푸키 산지니 패키지</h3>
+              <p class="text-xs text-gray-400 mt-1">방탈출 대기 없이 즐기고 굿즈까지 소장!</p>
+              
+              <div class="mt-6 mb-6">
+                <span class="text-3xl font-black text-orange-400 font-mono">5,900원</span>
+                <span class="text-xs text-gray-400 line-through ml-2">정가 12,000원</span>
+              </div>
+
+              <ul class="space-y-3 text-xs text-gray-300 border-t border-gray-800/80 pt-5">
+                <li class="flex items-center gap-2">
+                  <span class="text-orange-400 font-bold">✓</span> <strong>호러 방탈출 Fast Track 우선권 1매</strong>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-orange-400 font-bold">✓</span> <strong>할로윈 한정판 마법사 산지니 아크릴 키링</strong>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-orange-400 font-bold">✓</span> 마녀 푸드트럭 음료 교환권 1매
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-orange-400 font-bold">✓</span> 야광봉 + 호러 타투 스티커 팩
+                </li>
+              </ul>
+            </div>
+
+            <button data-track-id="btn-pkg-spooky" data-track-name="스푸키 패키지 선택"
+                    data-package-type="SPOOKY" data-package-name="스푸키 산지니 패키지 (5,900원)" data-package-price="5900"
+                    class="btn-select-package mt-8 w-full py-3.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-extrabold text-sm shadow-lg shadow-orange-900/40 transition transform active:scale-95">
+              스푸키 패키지 예약하기
+            </button>
+          </div>
+
+          <!-- Package 3: VIP Horror Pass -->
+          <div class="glass-panel rounded-3xl p-7 flex flex-col justify-between border border-purple-700/60 hover:border-purple-500 transition">
+            <div>
+              <div class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-purple-950 text-purple-300 border border-purple-800/60 mb-4">
+                👑 한정 수량 VIP
+              </div>
+              <h3 class="text-xl font-bold text-white">VIP 호러 프리패스</h3>
+              <p class="text-xs text-gray-400 mt-1">풀 패키지 굿즈와 VIP 전용 혜택</p>
+              
+              <div class="mt-6 mb-6">
+                <span class="text-3xl font-black text-purple-400 font-mono">12,900원</span>
+                <span class="text-xs text-gray-400 line-through ml-2">정가 25,000원</span>
+              </div>
+
+              <ul class="space-y-3 text-xs text-gray-300 border-t border-gray-800/80 pt-5">
+                <li class="flex items-center gap-2">
+                  <span class="text-purple-400 font-bold">✓</span> 방탈출 VIP 다이렉트 입장권
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-purple-400 font-bold">✓</span> <strong>할로윈 야광 산지니 오버핏 티셔츠</strong>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-purple-400 font-bold">✓</span> 마법사 산지니 키링 + 할로윈 마법 망토
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-purple-400 font-bold">✓</span> 무알콜 호러 칵테일 2잔 + 푸드 쿠폰
+                </li>
+              </ul>
+            </div>
+
+            <button data-track-id="btn-pkg-vip" data-track-name="VIP 패키지 선택"
+                    data-package-type="VIP" data-package-name="VIP 호러 프리패스 (12,900원)" data-package-price="12900"
+                    class="btn-select-package mt-8 w-full py-3 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-sm border border-purple-500 transition">
+              VIP 패키지 신청하기
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: LIVE COSTUME CONTEST VOTING -->
+    <section id="costume-section" class="py-16 px-4 bg-gray-950/60 border-t border-gray-800/80">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Live Student Voting</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">🎃 효원 코스튬 콘테스트 실시간 투표</h2>
+          <p class="text-gray-400 text-xs sm:text-sm mt-1">가장 인상적인 코스튬 후보에게 투표해주세요! (1인 1표, 실시간 DB 집계)</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Candidate 1 -->
+          <div class="glass-panel p-5 rounded-2xl border border-gray-800 flex flex-col justify-between">
+            <div>
+              <div class="text-4xl text-center mb-3">🧟‍♂️</div>
+              <h4 class="font-bold text-sm text-center text-white">기호 1번: 404 Not Found</h4>
+              <p class="text-2xs text-purple-300 text-center font-medium">컴퓨터공학과 학우</p>
+              <p class="text-xs text-gray-400 mt-2 text-center">밤샘 코딩에 영혼을 빼앗긴 컴공 좀비</p>
+
+              <!-- Progress bar -->
+              <div class="mt-4">
+                <div class="flex justify-between text-2xs text-gray-400 mb-1">
+                  <span>득표 현황</span>
+                  <span id="vote-count-c1" class="font-bold text-orange-400 font-mono">0표 (0%)</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                  <div id="vote-bar-c1" class="bg-orange-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <button data-candidate-id="c1" data-candidate-name="컴공 404 좀비"
+                    class="btn-vote-candidate mt-5 w-full py-2 rounded-lg bg-gray-800 hover:bg-orange-600 text-white text-xs font-bold border border-gray-700 transition">
+              투표하기
+            </button>
+          </div>
+
+          <!-- Candidate 2 -->
+          <div class="glass-panel p-5 rounded-2xl border border-gray-800 flex flex-col justify-between">
+            <div>
+              <div class="text-4xl text-center mb-3">🦅</div>
+              <h4 class="font-bold text-sm text-center text-white">기호 2번: 산지니 사신</h4>
+              <p class="text-2xs text-purple-300 text-center font-medium">예술대학 학우</p>
+              <p class="text-xs text-gray-400 mt-2 text-center">금정산의 어둠을 다스리는 사신 산지니</p>
+
+              <div class="mt-4">
+                <div class="flex justify-between text-2xs text-gray-400 mb-1">
+                  <span>득표 현황</span>
+                  <span id="vote-count-c2" class="font-bold text-orange-400 font-mono">0표 (0%)</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                  <div id="vote-bar-c2" class="bg-orange-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <button data-candidate-id="c2" data-candidate-name="산지니 사신"
+                    class="btn-vote-candidate mt-5 w-full py-2 rounded-lg bg-gray-800 hover:bg-orange-600 text-white text-xs font-bold border border-gray-700 transition">
+              투표하기
+            </button>
+          </div>
+
+          <!-- Candidate 3 -->
+          <div class="glass-panel p-5 rounded-2xl border border-gray-800 flex flex-col justify-between">
+            <div>
+              <div class="text-4xl text-center mb-3">💉</div>
+              <h4 class="font-bold text-sm text-center text-white">기호 3번: 닥터 프랑켄</h4>
+              <p class="text-2xs text-purple-300 text-center font-medium">의과대학 학우</p>
+              <p class="text-xs text-gray-400 mt-2 text-center">새벽 해부학 실습실에서 깨어난 의대생</p>
+
+              <div class="mt-4">
+                <div class="flex justify-between text-2xs text-gray-400 mb-1">
+                  <span>득표 현황</span>
+                  <span id="vote-count-c3" class="font-bold text-orange-400 font-mono">0표 (0%)</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                  <div id="vote-bar-c3" class="bg-orange-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <button data-candidate-id="c3" data-candidate-name="닥터 프랑켄"
+                    class="btn-vote-candidate mt-5 w-full py-2 rounded-lg bg-gray-800 hover:bg-orange-600 text-white text-xs font-bold border border-gray-700 transition">
+              투표하기
+            </button>
+          </div>
+
+          <!-- Candidate 4 -->
+          <div class="glass-panel p-5 rounded-2xl border border-gray-800 flex flex-col justify-between">
+            <div>
+              <div class="text-4xl text-center mb-3">🐺</div>
+              <h4 class="font-bold text-sm text-center text-white">기호 4번: 월가 늑대인간</h4>
+              <p class="text-2xs text-purple-300 text-center font-medium">경영대학 학우</p>
+              <p class="text-xs text-gray-400 mt-2 text-center">주가 폭락에 보름달 보고 폭주한 금융맨</p>
+
+              <div class="mt-4">
+                <div class="flex justify-between text-2xs text-gray-400 mb-1">
+                  <span>득표 현황</span>
+                  <span id="vote-count-c4" class="font-bold text-orange-400 font-mono">0표 (0%)</span>
+                </div>
+                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                  <div id="vote-bar-c4" class="bg-orange-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <button data-candidate-id="c4" data-candidate-name="월가 늑대인간"
+                    class="btn-vote-candidate mt-5 w-full py-2 rounded-lg bg-gray-800 hover:bg-orange-600 text-white text-xs font-bold border border-gray-700 transition">
+              투표하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: MINI QUIZ & ENGAGEMENT -->
+    <section class="py-14 px-4 border-t border-gray-800/80">
+      <div class="max-w-xl mx-auto glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl">🔮</span>
+          <div>
+            <h3 class="font-bold text-lg text-white">효원 할로윈 깜짝 퀴즈</h3>
+            <p class="text-xs text-gray-400">정답을 맞히시면 부스 방문 시 사탕 증정!</p>
+          </div>
+        </div>
+
+        <form id="pnu-quiz-form" class="space-y-4">
+          <p class="text-sm text-gray-200 font-medium">Q. 부산대학교의 상징 캐릭터이자 마스코트의 이름은 무엇일까요?</p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 cursor-pointer">
+              <input type="radio" name="quiz-answer" value="sanjini" class="accent-orange-500" required />
+              <span>1) 산지니 (Sanjini)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 cursor-pointer">
+              <input type="radio" name="quiz-answer" value="baekdu" class="accent-orange-500" />
+              <span>2) 백두호 (Baekduho)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 cursor-pointer">
+              <input type="radio" name="quiz-answer" value="hyowon" class="accent-orange-500" />
+              <span>3) 효원이 (Hyowoni)</span>
+            </label>
+          </div>
+
+          <button type="submit" data-track-id="btn-quiz-submit" data-track-name="퀴즈 정답 제출"
+                  class="w-full py-2.5 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs transition">
+            정답 제출하고 혜택받기
+          </button>
+        </form>
+        <div id="quiz-result" class="mt-4"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: VIRAL SHARE (TRACKED UTM CAMPAIGNS) -->
+    <section class="py-16 px-4 bg-gray-950 border-t border-gray-800">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="text-xs font-bold text-orange-400 uppercase tracking-widest">Share & Invite Friends</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">친구와 함께 넉터의 밤 즐기기</h2>
+        <p class="text-gray-400 text-xs sm:text-sm mt-1 max-w-lg mx-auto">
+          에브리타임, 카카오톡, 인스타그램으로 축제를 공유해주세요! 링크 공유 시 유입 UTM 파라미터가 자동 생성됩니다.
+        </p>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <button id="btn-share-copy" data-track-id="btn-share-everytime" data-track-name="에타 링크 복사"
+                  class="px-5 py-3 rounded-xl bg-red-950/70 hover:bg-red-900/90 text-red-200 border border-red-700/60 text-xs sm:text-sm font-bold flex items-center gap-2 transition transform active:scale-95">
+            📢 <span>에브리타임 링크 복사</span>
+          </button>
+
+          <button id="btn-share-kakao" data-track-id="btn-share-kakaotalk" data-track-name="카톡 공유"
+                  class="px-5 py-3 rounded-xl bg-yellow-950/70 hover:bg-yellow-900/90 text-yellow-200 border border-yellow-700/60 text-xs sm:text-sm font-bold flex items-center gap-2 transition transform active:scale-95">
+            💬 <span>카카오톡 친구 초대</span>
+          </button>
+
+          <button id="btn-share-insta" data-track-id="btn-share-instagram" data-track-name="인스타 링크 복사"
+                  class="px-5 py-3 rounded-xl bg-pink-950/70 hover:bg-pink-900/90 text-pink-200 border border-pink-700/60 text-xs sm:text-sm font-bold flex items-center gap-2 transition transform active:scale-95">
+            📸 <span>인스타그램 스토리 링크</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-10 px-4 border-t border-gray-800/60 text-center text-xs text-gray-500">
+      <div class="max-w-4xl mx-auto space-y-2">
+        <p class="font-bold text-gray-400">부산대학교 제56대 총학생회 | 2026 효원 할로윈 페스타 기획단</p>
+        <p>축제 일시: 2026년 10월 31일(금) 18:00 ~ 23:00 | 장소: 부산대학교 넉넉한터 & 시월광장</p>
+        <p class="text-2xs text-gray-600 pt-2">Powered by Supabase DB & GitHub Pages | PNU Growth Analytics v1.0</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- 2. GROWTH HACKING ANALYTICS DASHBOARD VIEW (ADMIN)             -->
+  <!-- ============================================================== -->
+  <section id="growth-dashboard-view" class="hidden min-h-screen py-8 px-4 max-w-7xl mx-auto">
+    
+    <!-- Dashboard Top Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-8 border-b border-gray-800">
+      <div>
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-600/50 text-emerald-300 text-xs font-mono font-semibold mb-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Supabase Growth MCP Connected</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-black text-white">부산대 총학생회 그로스해킹 분석 대시보드</h1>
+        <p id="dashboard-sync-status" class="text-xs text-gray-400 mt-1 font-mono">데이터 로드 대기 중...</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- Seed Simulation Traffic Button -->
+        <button id="btn-seed-traffic" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-indigo-950 transition">
+          ⚡ <span>가상 학생 30명 트래픽 시뮬레이션</span>
+        </button>
+
+        <!-- Refresh Button -->
+        <button id="btn-refresh-dashboard" class="p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 text-xs font-bold transition" title="새로고침">
+          🔄
+        </button>
+
+        <!-- Back to site -->
+        <button id="btn-back-to-site" class="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs transition">
+          이벤트 페이지로 돌아가기
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. KPI SUMMARY CARDS -->
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      <div class="glass-panel p-4 rounded-2xl border border-gray-800">
+        <span class="text-xs text-gray-400 block mb-1">총 방문 세션 (UV)</span>
+        <span id="kpi-total-visitors" class="text-2xl font-black font-mono text-white">0</span>
+        <span class="text-2xs text-emerald-400 block mt-1">Unique Sessions</span>
+      </div>
+
+      <div class="glass-panel p-4 rounded-2xl border border-gray-800">
+        <span class="text-xs text-gray-400 block mb-1">구매/예약 건수</span>
+        <span id="kpi-total-orders" class="text-2xl font-black font-mono text-orange-400">0</span>
+        <span class="text-2xs text-orange-400 block mt-1">Completed Orders</span>
+      </div>
+
+      <div class="glass-panel p-4 rounded-2xl border border-gray-800">
+        <span class="text-xs text-gray-400 block mb-1">최종 구매 전환율 (CR)</span>
+        <span id="kpi-conversion-rate" class="text-2xl font-black font-mono text-emerald-400">0.0%</span>
+        <span class="text-2xs text-emerald-400 block mt-1">Funnel Step 1 ➔ 5</span>
+      </div>
+
+      <div class="glass-panel p-4 rounded-2xl border border-gray-800">
+        <span class="text-xs text-gray-400 block mb-1">총 티켓/굿즈 매출액</span>
+        <span id="kpi-total-revenue" class="text-2xl font-black font-mono text-amber-300">₩0</span>
+        <span class="text-2xs text-gray-500 block mt-1">Total Gross GMV</span>
+      </div>
+
+      <div class="glass-panel p-4 rounded-2xl border border-gray-800 col-span-2 lg:col-span-1">
+        <span class="text-xs text-gray-400 block mb-1">평균 주문금액 (AOV)</span>
+        <span id="kpi-aov" class="text-2xl font-black font-mono text-purple-300">₩0</span>
+        <span class="text-2xs text-purple-400 block mt-1">Average Order Value</span>
+      </div>
+    </div>
+
+    <!-- 2. FUNNEL DROP-OFF ANALYSIS SECTION (KEY REQUIREMENT) -->
+    <div class="glass-panel p-6 rounded-3xl border border-gray-800 mb-8">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <div>
+          <h3 class="text-lg font-extrabold text-white flex items-center gap-2">
+            <span>📉 5단계 퍼널별 전환 & 이탈율 (Funnel Drop-off Analysis)</span>
+          </h3>
+          <p class="text-xs text-gray-400">방문 ➔ 탐색 ➔ 주문서 작성 ➔ 학생 인증 ➔ 최종 구매 단계별 전환율과 이탈율을 실시간 추적합니다.</p>
+        </div>
+        <span class="text-xs text-gray-500 font-mono">Data Source: Supabase analytics_events</span>
+      </div>
+
+      <!-- Funnel Steps Visualizer -->
+      <div id="funnel-steps-container" class="space-y-3 mb-6">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Bottleneck Recommendation Insight -->
+      <div id="funnel-bottleneck-insight">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 3. TWO COLUMNS: BUTTON CLICKS & UTM CHANNELS -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+      
+      <!-- Left: Button Click Ranking (Key Requirement) -->
+      <div class="lg:col-span-6 glass-panel p-6 rounded-3xl border border-gray-800 flex flex-col">
+        <div class="mb-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>🖱️ 버튼별 클릭 횟수 TOP 순위 (CTA Performance)</span>
+          </h3>
+          <p class="text-xs text-gray-400">학생들이 가장 많이 누른 버튼과 유도 성과를 측정합니다.</p>
+        </div>
+
+        <div id="button-clicks-container" class="space-y-2 flex-1">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Right: UTM Source Attribution -->
+      <div class="lg:col-span-6 glass-panel p-6 rounded-3xl border border-gray-800 flex flex-col">
+        <div class="mb-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>🌐 유입 채널별 방문 및 전환 기여도 (UTM Attribution)</span>
+          </h3>
+          <p class="text-xs text-gray-400">에브리타임, 인스타그램, 캠퍼스 대자보 QR 등 채널별 성과 비교</p>
+        </div>
+
+        <div id="utm-sources-container" class="space-y-3 flex-1">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. A/B TEST & RECENT EVENT STREAM -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- A/B Test Variant Performance -->
+      <div class="lg:col-span-6 glass-panel p-6 rounded-3xl border border-gray-800">
+        <div class="mb-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>⚖️ A/B 테스트 성과 비교 (카피 & 긴박감 효과)</span>
+          </h3>
+          <p class="text-xs text-gray-400">Variant A(전통 축제 감성) vs Variant B(50% 할인 & FOMO 긴박감)</p>
+        </div>
+
+        <div id="ab-test-container">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Real-time Live Event Log Stream -->
+      <div class="lg:col-span-6 glass-panel p-6 rounded-3xl border border-gray-800">
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>⚡ 실시간 이벤트 스트림 (Live Activity Feed)</span>
+          </h3>
+          <span class="text-2xs px-2 py-0.5 rounded bg-gray-800 text-gray-400 font-mono">최근 15건</span>
+        </div>
+
+        <div id="recent-events-stream" class="h-64 overflow-y-auto space-y-1 pr-1">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================== -->
+  <!-- 3. FUNNEL CHECKOUT & TICKET ISSUANCE MODAL (STEPS 3, 4, 5)     -->
+  <!-- ============================================================== -->
+  <div id="funnel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-sm transition-opacity"></div>
+
+    <!-- Modal Box -->
+    <div class="relative w-full max-w-lg glass-panel bg-gray-900 border border-gray-700 rounded-3xl shadow-2xl z-10 overflow-hidden flex flex-col max-h-[90vh]">
+      
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-gray-800 flex items-center justify-between">
+        <div>
+          <span class="text-xs text-orange-400 font-bold">PNU HALLOWEEN CHECKOUT</span>
+          <h3 class="text-lg font-extrabold text-white">할로윈 패키지 사전예약</h3>
+        </div>
+        <button id="btn-close-modal" class="w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center text-sm">
+          ✕
+        </button>
+      </div>
+
+      <!-- Step Progress Bar (Steps 3, 4, 5) -->
+      <div class="px-6 py-3 bg-gray-950/60 border-b border-gray-800/80 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span id="step-indicator-3" class="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold">3</span>
+          <span class="text-xs text-gray-300 font-semibold">옵션확인</span>
+        </div>
+        <div class="w-8 h-0.5 bg-gray-800"></div>
+        <div class="flex items-center gap-2">
+          <span id="step-indicator-4" class="w-7 h-7 rounded-full bg-gray-800 text-gray-400 flex items-center justify-center text-xs font-bold">4</span>
+          <span class="text-xs text-gray-400 font-semibold">학생인증</span>
+        </div>
+        <div class="w-8 h-0.5 bg-gray-800"></div>
+        <div class="flex items-center gap-2">
+          <span id="step-indicator-5" class="w-7 h-7 rounded-full bg-gray-800 text-gray-400 flex items-center justify-center text-xs font-bold">5</span>
+          <span class="text-xs text-gray-400 font-semibold">발권완료</span>
+        </div>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto flex-1">
+        
+        <!-- STEP 3: OPTION & PRICE CONFIRMATION -->
+        <div id="modal-step-3" class="space-y-4">
+          <div class="p-4 rounded-2xl bg-gray-950/80 border border-gray-800">
+            <span class="text-xs text-gray-400">선택하신 패키지</span>
+            <h4 id="step3-package-title" class="text-lg font-bold text-white mt-0.5">스푸키 산지니 패키지</h4>
+            <div class="mt-3 flex items-baseline justify-between border-t border-gray-800/80 pt-3">
+              <span class="text-xs text-gray-400">결제 예상 금액</span>
+              <span id="step3-package-price" class="text-2xl font-black text-orange-400 font-mono">5,900원</span>
+            </div>
+          </div>
+
+          <div class="text-xs text-gray-400 space-y-1.5 p-3 rounded-xl bg-blue-950/30 border border-blue-900/40">
+            <p class="text-blue-300 font-bold">📌 예약 안내사항</p>
+            <p>• 부산대학교 재학생, 휴학생, 대학원생 모두 참여 가능합니다.</p>
+            <p>• 다음 단계에서 학생증 학번 인증 후 모바일 티켓이 즉시 발권됩니다.</p>
+          </div>
+
+          <button id="btn-step3-next" data-track-id="btn-step3-to-step4" data-track-name="학생 인증 단계 이동"
+                  class="w-full py-3.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-lg shadow-orange-900/40 transition">
+            학생 인증하고 다음 단계로 (Step 4) ➔
+          </button>
+        </div>
+
+        <!-- STEP 4: STUDENT VERIFICATION FORM -->
+        <div id="modal-step-4" class="hidden space-y-4">
+          <div class="text-center mb-2">
+            <h4 class="font-bold text-white text-base">부산대학교 재학생 정보 입력</h4>
+            <p class="text-xs text-gray-400 mt-0.5">현장 부스 본인 확인 및 모바일 티켓 발급용</p>
+          </div>
+
+          <form id="student-verify-form" class="space-y-3">
+            <div>
+              <label class="block text-xs text-gray-300 font-medium mb-1">학번 (8~10자리)</label>
+              <input id="input-student-id" type="text" placeholder="예: 202412345" required
+                     class="w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-700 focus:border-orange-500 focus:outline-none text-white text-sm font-mono" />
+            </div>
+
+            <div>
+              <label class="block text-xs text-gray-300 font-medium mb-1">이름</label>
+              <input id="input-student-name" type="text" placeholder="예: 김효원" required
+                     class="w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-700 focus:border-orange-500 focus:outline-none text-white text-sm" />
+            </div>
+
+            <div>
+              <label class="block text-xs text-gray-300 font-medium mb-1">소속 학과/학부</label>
+              <input id="input-department" type="text" placeholder="예: 컴퓨터공학과" required
+                     class="w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-700 focus:border-orange-500 focus:outline-none text-white text-sm" />
+            </div>
+
+            <div>
+              <label class="block text-xs text-gray-300 font-medium mb-1">연락처 (휴대폰)</label>
+              <input id="input-phone" type="tel" placeholder="예: 010-1234-5678" required
+                     class="w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-700 focus:border-orange-500 focus:outline-none text-white text-sm font-mono" />
+            </div>
+
+            <button type="submit" data-track-id="btn-step4-submit" data-track-name="학생 인증 완료 제출"
+                    class="w-full py-3.5 mt-4 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-lg shadow-orange-900/40 transition">
+              인증 완료 & 예약 확정하기 (Step 5) ➔
+            </button>
+          </form>
+        </div>
+
+        <!-- STEP 5: FINAL PAYMENT & ORDER EXECUTION -->
+        <div id="modal-step-5" class="hidden space-y-4">
+          <div class="text-center mb-2">
+            <h4 class="font-bold text-white text-base">최종 결제 및 발권 확정</h4>
+            <p class="text-xs text-gray-400 mt-0.5">선택한 결제 수단으로 사전예약을 완료합니다.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-gray-950/80 border border-gray-800 space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-gray-400">예약 패키지:</span>
+              <span id="step5-package-name" class="font-bold text-white"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">예약자 정보:</span>
+              <span id="step5-student-info" class="font-medium text-gray-200"></span>
+            </div>
+            <div class="flex justify-between border-t border-gray-800 pt-2 text-sm">
+              <span class="font-bold text-gray-300">최종 결제금액:</span>
+              <span id="step5-final-amount" class="font-black text-orange-400 font-mono text-base"></span>
+            </div>
+          </div>
+
+          <!-- Payment Options -->
+          <div class="space-y-2">
+            <label class="text-xs font-medium text-gray-300 block">결제 수단 선택</label>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <label class="flex items-center gap-2 p-3 rounded-xl bg-gray-950 border border-gray-700 hover:border-yellow-500 cursor-pointer">
+                <input type="radio" name="payment-method" value="kakaopay" checked class="accent-yellow-400" />
+                <span class="font-bold text-yellow-400">🟡 카카오페이</span>
+              </label>
+              <label class="flex items-center gap-2 p-3 rounded-xl bg-gray-950 border border-gray-700 hover:border-blue-500 cursor-pointer">
+                <input type="radio" name="payment-method" value="tosspay" class="accent-blue-400" />
+                <span class="font-bold text-blue-400">🔵 토스페이</span>
+              </label>
+            </div>
+          </div>
+
+          <button id="btn-final-pay" data-track-id="btn-step5-pay" data-track-name="최종 결제 및 발권"
+                  class="w-full py-3.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-sm shadow-lg shadow-orange-900/40 transition">
+            결제 및 디지털 티켓 발권하기
+          </button>
+        </div>
+
+        <!-- FINAL: DIGITAL TICKET ISSUED SCREEN -->
+        <div id="modal-step-ticket" class="hidden space-y-4">
+          <div class="text-center">
+            <span class="text-4xl animate-bounce inline-block">🎉</span>
+            <h4 class="text-xl font-black text-white mt-1">예약 및 티켓 발권 완료!</h4>
+            <p class="text-xs text-emerald-400 font-semibold">데이터베이스에 예약이 성공적으로 기록되었습니다.</p>
+          </div>
+
+          <!-- Ticket Card Graphic -->
+          <div class="relative bg-gradient-to-b from-gray-900 to-gray-950 p-6 rounded-3xl border-2 border-orange-500/70 shadow-2xl overflow-hidden">
+            <div class="ticket-notch-left"></div>
+            <div class="ticket-notch-right"></div>
+
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3 mb-3">
+              <span class="text-xs font-bold text-orange-400">PNU HALLOWEEN 2026 DIGITAL PASS</span>
+              <span id="ticket-order-code" class="font-mono text-xs font-bold text-white bg-gray-800 px-2 py-0.5 rounded">PNU-HW-000000</span>
+            </div>
+
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between">
+                <span class="text-gray-400">성명 / 학번</span>
+                <span id="ticket-student" class="font-bold text-white"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">학과</span>
+                <span id="ticket-dept" class="font-semibold text-gray-200"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">티켓 패키지</span>
+                <span id="ticket-pkg" class="font-bold text-orange-300"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">일시</span>
+                <span id="ticket-date" class="font-medium text-gray-300"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">장소</span>
+                <span id="ticket-place" class="font-medium text-gray-300"></span>
+              </div>
+            </div>
+
+            <!-- Barcode decoration -->
+            <div class="mt-5 pt-3 border-t border-dashed border-gray-700 text-center">
+              <div class="flex justify-center items-center h-8 gap-0.5 overflow-hidden opacity-75">
+                <span class="w-1 h-full bg-white"></span>
+                <span class="w-2 h-full bg-white"></span>
+                <span class="w-0.5 h-full bg-white"></span>
+                <span class="w-3 h-full bg-white"></span>
+                <span class="w-1 h-full bg-white"></span>
+                <span class="w-0.5 h-full bg-white"></span>
+                <span class="w-2 h-full bg-white"></span>
+                <span class="w-1 h-full bg-white"></span>
+                <span class="w-3 h-full bg-white"></span>
+                <span class="w-1 h-full bg-white"></span>
+                <span class="w-2 h-full bg-white"></span>
+                <span class="w-0.5 h-full bg-white"></span>
+                <span class="w-1.5 h-full bg-white"></span>
+                <span class="w-2 h-full bg-white"></span>
+              </div>
+              <span class="text-2xs text-gray-500 font-mono mt-1 block">축제 당일 부스에서 본 화면을 제시해주세요</span>
+            </div>
+          </div>
+
+          <button onclick="document.getElementById('funnel-modal').classList.add('hidden')"
+                  class="w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition">
+            확인 및 닫기
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/supabase-client.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

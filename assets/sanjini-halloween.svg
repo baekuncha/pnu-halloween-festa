@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff9900" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ff5500" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a0845"/>
+      <stop offset="100%" stop-color="#6441a5"/>
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#003876"/>
+      <stop offset="100%" stop-color="#001833"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Aura Glow -->
+  <circle cx="100" cy="110" r="70" fill="url(#glow)" />
+
+  <!-- Sanjini Body (Blue Eagle) -->
+  <ellipse cx="100" cy="125" rx="42" ry="48" fill="url(#bodyGrad)" stroke="#ffaa00" stroke-width="2"/>
+  
+  <!-- White Chest Feathers -->
+  <path d="M85 110 Q100 135 115 110 Q108 145 100 150 Q92 145 85 110 Z" fill="#f0f4f8"/>
+  
+  <!-- Eagle Wings -->
+  <path d="M60 120 C40 125 35 150 48 160 C58 148 68 135 70 125 Z" fill="#002752"/>
+  <path d="M140 120 C160 125 165 150 152 160 C142 148 132 135 130 125 Z" fill="#002752"/>
+
+  <!-- Eagle Head -->
+  <circle cx="100" cy="85" r="30" fill="url(#bodyGrad)"/>
+  
+  <!-- Cheeks / Eyebrows -->
+  <ellipse cx="88" cy="82" rx="7" ry="8" fill="#ffffff"/>
+  <ellipse cx="112" cy="82" rx="7" ry="8" fill="#ffffff"/>
+  <circle cx="90" cy="83" r="4" fill="#111111"/>
+  <circle cx="110" cy="83" r="4" fill="#111111"/>
+  <circle cx="92" cy="81" r="1.5" fill="#ffffff"/>
+  <circle cx="112" cy="81" r="1.5" fill="#ffffff"/>
+
+  <!-- Sharp Eagle Beak (Gold) -->
+  <polygon points="94,88 106,88 100,104" fill="#ffb703" stroke="#e07a5f" stroke-width="1"/>
+
+  <!-- Cute Vampire Fangs -->
+  <polygon points="95,95 97,101 99,95" fill="#ffffff"/>
+  <polygon points="101,95 103,101 105,95" fill="#ffffff"/>
+
+  <!-- Witch Hat -->
+  <!-- Brim -->
+  <ellipse cx="100" cy="68" rx="46" ry="12" fill="#1c0f2a" stroke="#9d4edd" stroke-width="2"/>
+  <!-- Cone -->
+  <path d="M72 66 Q90 15 135 22 Q115 50 128 66 Z" fill="url(#hatGrad)"/>
+  <!-- Hat Belt & Buckle -->
+  <path d="M75 64 Q100 68 125 64" stroke="#ff9e00" stroke-width="6" fill="none"/>
+  <rect x="95" y="60" width="10" height="9" fill="none" stroke="#ffd166" stroke-width="2.5" rx="1"/>
+
+  <!-- Little Jack-o-Lantern held by Sanjini -->
+  <g transform="translate(108, 130) scale(0.45)">
+    <circle cx="40" cy="40" r="35" fill="#ff6b00" stroke="#cc5500" stroke-width="3"/>
+    <!-- Segments -->
+    <ellipse cx="40" cy="40" rx="20" ry="34" fill="none" stroke="#e05300" stroke-width="2.5"/>
+    <!-- Stem -->
+    <rect x="36" y="2" width="8" height="12" fill="#2d6a4f" rx="2"/>
+    <!-- Eyes & Mouth -->
+    <polygon points="26,30 34,30 30,22" fill="#240046"/>
+    <polygon points="46,30 54,30 50,22" fill="#240046"/>
+    <polygon points="38,36 42,36 40,32" fill="#240046"/>
+    <path d="M24 45 Q40 60 56 45 Q50 54 40 54 Q30 54 24 45 Z" fill="#240046"/>
+  </g>
+</svg>

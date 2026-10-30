@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <filter id="ghostGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M50 15 C30 15 25 35 25 55 C25 75 22 85 28 85 C34 85 36 78 42 78 C48 78 50 85 56 85 C62 85 64 78 70 78 C76 78 78 85 84 85 C90 85 87 75 87 55 C87 35 70 15 50 15 Z" 
+        fill="#f8f9fa" opacity="0.92" filter="url(#ghostGlow)"/>
+  <!-- Floating arms -->
+  <path d="M25 52 C15 50 12 60 22 62" stroke="#f8f9fa" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M87 52 C97 50 100 60 90 62" stroke="#f8f9fa" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Eyes -->
+  <ellipse cx="42" cy="42" rx="4.5" ry="6.5" fill="#1b1b2f"/>
+  <ellipse cx="62" cy="42" rx="4.5" ry="6.5" fill="#1b1b2f"/>
+  <circle cx="44" cy="40" r="1.5" fill="#ffffff"/>
+  <circle cx="64" cy="40" r="1.5" fill="#ffffff"/>
+  <!-- Rosy cheeks -->
+  <ellipse cx="38" cy="49" rx="3.5" ry="2" fill="#ffb4a2" opacity="0.7"/>
+  <ellipse cx="66" cy="49" rx="3.5" ry="2" fill="#ffb4a2" opacity="0.7"/>
+  <!-- Spooky 'O' Mouth -->
+  <ellipse cx="52" cy="52" rx="4" ry="6" fill="#1b1b2f"/>
+</svg>

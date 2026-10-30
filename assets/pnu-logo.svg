@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pnuBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#003876"/>
+      <stop offset="100%" stop-color="#001d3d"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer Ring -->
+  <circle cx="60" cy="60" r="56" fill="none" stroke="#003876" stroke-width="4"/>
+  <circle cx="60" cy="60" r="50" fill="url(#pnuBlue)"/>
+  <circle cx="60" cy="60" r="46" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="3,2"/>
+  
+  <!-- Text Curve approximation or clean PNU text -->
+  <text x="60" y="32" font-family="'Pretendard', sans-serif" font-weight="900" font-size="11" fill="#ffc300" text-anchor="middle" letter-spacing="1.5">PUSAN NAT'L UNIV</text>
+  
+  <!-- Open Book & Torch Emblem -->
+  <path d="M42 56 Q60 52 60 68 Q60 52 78 56 L76 78 Q60 74 60 86 Q60 74 44 78 Z" fill="#ffffff"/>
+  <path d="M60 50 L60 84" stroke="#003876" stroke-width="2"/>
+  
+  <!-- Torch Flame in center -->
+  <path d="M60 38 C56 44 54 48 58 52 C60 54 62 52 62 50 C65 52 66 49 65 47 C67 45 62 40 60 38 Z" fill="#ff5400"/>
+  
+  <text x="60" y="100" font-family="'Pretendard', sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">부산대학교</text>
+  <text x="60" y="108" font-family="'Pretendard', sans-serif" font-weight="600" font-size="6" fill="#a0c4ff" text-anchor="middle">1946</text>
+</svg>

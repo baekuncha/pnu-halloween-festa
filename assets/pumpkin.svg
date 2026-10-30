@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <radialGradient id="pGrad" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ff9e00"/>
+      <stop offset="70%" stop-color="#e85d04"/>
+      <stop offset="100%" stop-color="#9d0208"/>
+    </radialGradient>
+    <filter id="pGlow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Stem -->
+  <path d="M48 18 C46 8 58 4 60 12 C57 15 54 18 52 20 Z" fill="#2d6a4f" stroke="#1b4332" stroke-width="1.5"/>
+  <!-- Pumpkin Segments -->
+  <ellipse cx="25" cy="55" rx="18" ry="26" fill="url(#pGrad)"/>
+  <ellipse cx="75" cy="55" rx="18" ry="26" fill="url(#pGrad)"/>
+  <ellipse cx="36" cy="56" rx="20" ry="29" fill="url(#pGrad)"/>
+  <ellipse cx="64" cy="56" rx="20" ry="29" fill="url(#pGrad)"/>
+  <ellipse cx="50" cy="56" rx="21" ry="30" fill="url(#pGrad)"/>
+
+  <!-- Glowing Face -->
+  <g fill="#ffe600" filter="url(#pGlow)">
+    <polygon points="32,45 42,45 37,35"/>
+    <polygon points="58,45 68,45 63,35"/>
+    <polygon points="48,51 52,51 50,46"/>
+    <!-- Tooth smile -->
+    <path d="M30 62 Q50 78 70 62 L66 66 L62 62 L58 66 L50 64 L42 66 L38 62 L34 66 Z"/>
+  </g>
+</svg>

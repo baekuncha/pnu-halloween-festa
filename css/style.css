@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+/* Custom Spooky Animations & Theme */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 117, 24, 0.4), inset 0 0 10px rgba(255, 117, 24, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(255, 117, 24, 0.8), inset 0 0 15px rgba(255, 117, 24, 0.4); }
+}
+
+@keyframes ghostDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(15px, -15px) scale(1.05); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes fogMotion {
+  0% { transform: translateX(-10%); }
+  50% { transform: translateX(10%); }
+  100% { transform: translateX(-10%); }
+}
+
+.floating-sanjini {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.floating-ghost {
+  animation: ghostDrift 6s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 2.5s infinite;
+}
+
+/* Background gradient & noise */
+.halloween-bg {
+  background-color: #0c0d14;
+  background-image: 
+    radial-gradient(circle at 20% 15%, rgba(110, 44, 186, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(255, 107, 0, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(0, 56, 118, 0.25) 0%, transparent 50%);
+}
+
+.ticket-notch-left, .ticket-notch-right {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0c0d14;
+  transform: translateY(-50%);
+}
+.ticket-notch-left { left: -10px; }
+.ticket-notch-right { right: -10px; }
+
+/* Custom barcode visual */
+.barcode-line {
+  display: inline-block;
+  background-color: #222;
+  height: 40px;
+  margin-right: 2px;
+}
+
+/* Glassmorphism panels */
+.glass-panel {
+  background: rgba(18, 20, 32, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 117, 24, 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f1016;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2d3e;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff7518;
+}
+
+/* Text stroke glow for headings */
+.spooky-text-glow {
+  text-shadow: 0 0 20px rgba(255, 117, 24, 0.5), 0 0 40px rgba(157, 78, 221, 0.4);
+}
