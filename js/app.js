@@ -178,6 +178,9 @@ function initFunnelModal() {
         price: pPrice
       });
 
+      // Raw event_logs: 구매하기 버튼 클릭 -> order_form
+      window.PNUTracker.logToEventLogs('button_click', 'order_form', btn.getAttribute('data-track-id') || 'btn-select-package');
+
       openFunnelStep(3);
     });
   });
@@ -269,6 +272,9 @@ function initFunnelModal() {
         package_type: currentOrderState.packageType,
         payment_method: selectedPay
       });
+
+      // Raw event_logs: 최종 결제/주문 완료 -> purchase_complete
+      window.PNUTracker.logToEventLogs('button_click', 'purchase_complete', 'btn-final-pay');
 
       // 3. Show Success Screen with Digital Ticket
       showTicketSuccess(orderCode, orderPayload);

@@ -53,12 +53,12 @@
     return utm;
   }
 
-  // 3. A/B Testing Variant Split (50% A / 50% B)
+  // 3. A/B Testing Variant Split (50% A / 50% B) - assigned per session
   function getOrAssignAbVariant() {
-    let variant = localStorage.getItem(STORAGE_KEYS.AB_VARIANT);
+    let variant = sessionStorage.getItem(STORAGE_KEYS.AB_VARIANT);
     if (!variant) {
       variant = Math.random() < 0.5 ? 'A' : 'B';
-      localStorage.setItem(STORAGE_KEYS.AB_VARIANT, variant);
+      sessionStorage.setItem(STORAGE_KEYS.AB_VARIANT, variant);
     }
     return variant;
   }
@@ -127,6 +127,22 @@
           ...extraMetadata
         }
       });
+    },
+
+    // Raw event_logs table logger (growth hacking funnel events)
+    logToEventLogs: function (eventName, funnelStep, targetId) {
+      const record = {
+        session_id: sessionId,
+        variant: abVariant,
+        funnel_step: funnelStep || 'landing',
+        event_name: eventName,
+        target_id: targetId || null
+      };
+
+      console.log(`[🎃 EventLogs]`, record);
+      if (window.GrowthDB && typeof window.GrowthDB.logEventLog === 'function') {
+        window.GrowthDB.logEventLog(record);
+      }
     }
   };
 
@@ -140,6 +156,9 @@
       viewport: `${window.innerWidth}x${window.innerHeight}`,
       language: navigator.language
     });
+
+    // Log raw landing event into event_logs
+    window.PNUTracker.logToEventLogs('page_view', 'landing', null);
 
     // Global Click Delegation for any element with data-track-id
     document.addEventListener('click', (event) => {
@@ -184,6 +203,13 @@
         heroCta.innerHTML = `<span>⚡ 지금 얼리버드 50% 혜택받기</span>`;
         heroCta.classList.add('pulse-glow');
       }
+
+      // Show time attack banner + retention share button
+      const timeAttackBanner = document.getElementById('time-attack-banner');
+      if (timeAttackBanner) {
+        timeAttackBanner.classList.remove('hidden');
+        initTimeAttackBanner();
+      }
     } else {
       // Variant A: Atmospheric Festival & Tradition Angle
       if (heroTitle) {
@@ -195,6 +221,68 @@
       if (heroCta) {
         heroCta.innerHTML = `<span>🎃 할로윈 페키지 사전예약</span>`;
       }
+    }
+  }
+
+  // B-Variant: 3-hour time attack banner countdown + tracked click listeners
+  function initTimeAttackBanner() {
+    const banner = document.getElementById('time-attack-banner');
+    const timerEl = document.getElementById('time-attack-timer');
+    if (!banner) return;
+
+    const START_KEY = 'pnu_hw_timeattack_start';
+    const DURATION_MS = 3 * 60 * 60 * 1000;
+
+    let startTs = parseInt(sessionStorage.getItem(START_KEY) || '0', 10);
+    if (!startTs) {
+      startTs = Date.now();
+      sessionStorage.setItem(START_KEY, String(startTs));
+    }
+
+    const intervalId = setInterval(() => {
+      const remaining = Math.max(0, DURATION_MS - (Date.now() - startTs));
+      if (timerEl) {
+        const h = String(Math.floor(remaining / 3600000)).padStart(2, '0');
+        const m = String(Math.floor((remaining % 3600000) / 60000)).padStart(2, '0');
+        const s = String(Math.floor((remaining % 60000) / 1000)).padStart(2, '0');
+        timerEl.textContent = `${h}:${m}:${s}`;
+      }
+      if (remaining <= 0) {
+        clearInterval(intervalId);
+        banner.classList.add('hidden');
+      }
+    }, 1000);
+
+    // Time attack banner click -> event_logs (time_attack_click)
+    const attackBtn = document.getElementById('banner-timeattack-990');
+    if (attackBtn) {
+      attackBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.PNUTracker.logToEventLogs('time_attack_click', 'landing', 'banner-timeattack-990');
+        const pkgSection = document.getElementById('packages-section');
+        if (pkgSection) pkgSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    // Retention share button click -> event_logs (share_click)
+    const shareBtn = document.getElementById('btn-share-discount');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        window.PNUTracker.logToEventLogs('share_click', 'landing', 'btn-share-discount');
+
+        const shareUrl = `${window.location.origin}${window.location.pathname}?utm_source=friend_share&utm_medium=retention&utm_campaign=halloween2026`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            if (typeof showToast === 'function') {
+              showToast('🎁 친구 공유 50% 할인 링크가 복사되었습니다!', 'success');
+            }
+          }).catch(() => {
+            if (typeof showToast === 'function') {
+              showToast('링크 복사에 실패했습니다.', 'error');
+            }
+          });
+        }
+      });
     }
   }
 
@@ -240,6 +328,7 @@
         if (entry.isIntersecting && !hasTracked) {
           hasTracked = true;
           window.PNUTracker.trackFunnelStep(2, 'explore_packages');
+          window.PNUTracker.logToEventLogs('page_view', 'detail_view', null);
           observer.disconnect();
         }
       });

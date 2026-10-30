@@ -11,11 +11,11 @@ const SUPABASE_CONFIG = {
 // Initialize Supabase instance using CDN window.supabase
 let sbClient = null;
 try {
-  if (window.supabase && typeof window.supabase.createClient === 'function') {
+  if (SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey && window.supabase && typeof window.supabase.createClient === 'function') {
     sbClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
     console.log("[Supabase] Successfully connected to PNU Halloween Growth DB");
   } else {
-    console.warn("[Supabase] Library not found yet, will retry upon script load.");
+    console.warn("[Supabase] Library or config missing, will retry upon script load.");
   }
 } catch (err) {
   console.error("[Supabase] Initialization error:", err);
@@ -95,6 +95,39 @@ async function sendEventToSupabase(payload) {
     q.push(eventRecord);
     saveOfflineQueue(q);
     return { success: false, queued: true };
+  }
+}
+
+/**
+ * Insert a raw growth hacking event into the event_logs table
+ */
+async function logEventLogToDB(record) {
+  if (!sbClient) {
+    if (window.supabase && SUPABASE_CONFIG.url && SUPABASE_CONFIG.anonKey) {
+      sbClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+    }
+  }
+  if (!sbClient) {
+    console.warn("[EventLogs] Supabase client unavailable, event dropped:", record);
+    return { success: false };
+  }
+
+  const row = {
+    session_id: record.session_id,
+    variant: record.variant === 'B' ? 'B' : 'A',
+    funnel_step: record.funnel_step || 'landing',
+    event_name: record.event_name,
+    target_id: record.target_id || null
+  };
+
+  try {
+    const { error } = await sbClient.from('event_logs').insert([row]);
+    if (error) throw error;
+    console.log("[EventLogs] Inserted:", row);
+    return { success: true };
+  } catch (err) {
+    console.warn("[EventLogs] Insert failed:", err.message || err);
+    return { success: false, error: err.message || String(err) };
   }
 }
 
@@ -420,6 +453,7 @@ async function seedRealisticTraffic(count = 30) {
 window.GrowthDB = {
   client: sbClient,
   sendEvent: sendEventToSupabase,
+  logEventLog: logEventLogToDB,
   recordOrder: recordOrderToSupabase,
   submitVote: submitCostumeVoteToSupabase,
   fetchCostumeVotes,

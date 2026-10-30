@@ -173,3 +173,34 @@ begin
 end $$;
 
 grant execute on function public.get_growth_metrics() to anon;
+
+-- 6) Growth hacking event logs table (raw event collection)
+create table if not exists public.event_logs (
+  id uuid primary key default gen_random_uuid(),
+  session_id text not null,
+  variant varchar(1) not null default 'A',
+  funnel_step varchar(50) not null,
+  event_name varchar(50) not null,
+  target_id varchar(50),
+  created_at timestamptz not null default now(),
+  constraint event_logs_variant_check check (variant in ('A', 'B'))
+);
+
+create index if not exists idx_event_logs_session on public.event_logs (session_id);
+create index if not exists idx_event_logs_funnel on public.event_logs (funnel_step);
+create index if not exists idx_event_logs_event on public.event_logs (event_name);
+create index if not exists idx_event_logs_created on public.event_logs (created_at desc);
+
+alter table public.event_logs enable row level security;
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_policies where tablename = 'event_logs' and policyname = 'allow_anon_insert_event_logs'
+  ) then
+    create policy "allow_anon_insert_event_logs" on public.event_logs
+      for insert to anon with check (true);
+    create policy "allow_anon_select_event_logs" on public.event_logs
+      for select to anon using (true);
+  end if;
+end $$;
