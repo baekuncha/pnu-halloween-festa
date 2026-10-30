@@ -327,94 +327,55 @@ async function seedRealisticTraffic(count = 30) {
     const variant = Math.random() > 0.5 ? 'B' : 'A';
     const isMobile = Math.random() > 0.3;
     const deviceType = isMobile ? 'mobile' : 'desktop';
+    const baseUrl = window.location.origin + window.location.pathname;
+
+    function createEventRecord(etype, ename, fstep = null, bid = null, btext = null, meta = {}) {
+      return {
+        session_id: fakeSessionId,
+        event_type: etype,
+        event_name: ename,
+        funnel_step: fstep,
+        button_id: bid,
+        button_text: btext,
+        page_url: `${baseUrl}?utm_source=${source}`,
+        referrer: '',
+        utm_source: source,
+        utm_medium: source === 'everytime' ? 'board' : source === 'instagram' ? 'story' : 'direct',
+        utm_campaign: 'halloween_2026',
+        ab_variant: variant,
+        device_type: deviceType,
+        metadata: { simulated: true, ...meta }
+      };
+    }
 
     // Step 1: Landing
-    generatedEvents.push({
-      session_id: fakeSessionId,
-      event_type: 'funnel_step',
-      event_name: 'landing_view',
-      funnel_step: 1,
-      utm_source: source,
-      ab_variant: variant,
-      device_type: deviceType,
-      page_url: window.location.origin + window.location.pathname + `?utm_source=${source}`,
-      metadata: { simulated: true }
-    });
+    generatedEvents.push(createEventRecord('funnel_step', 'landing_view', 1));
 
     // Random button clicks on landing
     const clickCount = Math.floor(Math.random() * 3) + 1;
     for (let c = 0; c < clickCount; c++) {
       const btn = buttons[Math.floor(Math.random() * buttons.length)];
-      generatedEvents.push({
-        session_id: fakeSessionId,
-        event_type: 'button_click',
-        event_name: 'click_' + btn.id,
-        funnel_step: 1,
-        button_id: btn.id,
-        button_text: btn.text,
-        utm_source: source,
-        ab_variant: variant,
-        device_type: deviceType,
-        metadata: { simulated: true }
-      });
+      generatedEvents.push(createEventRecord('button_click', 'click_' + btn.id, 1, btn.id, btn.text));
     }
 
-    // Step 2: Explore package (70% conversion from step 1)
+    // Step 2: Explore package (72% conversion from step 1)
     if (Math.random() < 0.72) {
-      generatedEvents.push({
-        session_id: fakeSessionId,
-        event_type: 'funnel_step',
-        event_name: 'package_explore',
-        funnel_step: 2,
-        utm_source: source,
-        ab_variant: variant,
-        device_type: deviceType,
-        metadata: { simulated: true }
-      });
+      generatedEvents.push(createEventRecord('funnel_step', 'package_explore', 2));
 
-      // Step 3: Checkout start (55% conversion from step 2)
+      // Step 3: Checkout start (58% conversion from step 2)
       if (Math.random() < 0.58) {
         const pkg = packages[Math.floor(Math.random() * packages.length)];
-        generatedEvents.push({
-          session_id: fakeSessionId,
-          event_type: 'funnel_step',
-          event_name: 'checkout_start',
-          funnel_step: 3,
-          button_id: `btn-select-${pkg.type.toLowerCase()}`,
-          button_text: `${pkg.name} 선택`,
-          utm_source: source,
-          ab_variant: variant,
-          device_type: deviceType,
-          metadata: { package_type: pkg.type, package_price: pkg.price, simulated: true }
-        });
+        generatedEvents.push(createEventRecord('funnel_step', 'checkout_start', 3, `btn-select-${pkg.type.toLowerCase()}`, `${pkg.name} 선택`, { package_type: pkg.type, package_price: pkg.price }));
 
         // Step 4: Student verification (75% conversion from step 3)
         if (Math.random() < 0.75) {
           const studentNum = '202' + Math.floor(100000 + Math.random() * 899999);
           const dept = depts[Math.floor(Math.random() * depts.length)];
-          generatedEvents.push({
-            session_id: fakeSessionId,
-            event_type: 'funnel_step',
-            event_name: 'student_verify_complete',
-            funnel_step: 4,
-            utm_source: source,
-            ab_variant: variant,
-            device_type: deviceType,
-            metadata: { student_id_prefix: studentNum.substring(0, 4), department: dept, simulated: true }
-          });
+          generatedEvents.push(createEventRecord('funnel_step', 'student_verify_complete', 4, null, null, { student_id_prefix: studentNum.substring(0, 4), department: dept }));
 
           // Step 5: Purchase complete (80% conversion from step 4)
           if (Math.random() < 0.80) {
-            generatedEvents.push({
-              session_id: fakeSessionId,
-              event_type: 'funnel_step',
-              event_name: 'purchase_complete',
-              funnel_step: 5,
-              utm_source: source,
-              ab_variant: variant,
-              device_type: deviceType,
-              metadata: { package_type: pkg.type, total_price: pkg.price, simulated: true }
-            });
+            generatedEvents.push(createEventRecord('funnel_step', 'purchase_complete', 5, null, null, { package_type: pkg.type, total_price: pkg.price }));
 
             // Add fake order
             generatedOrders.push({
